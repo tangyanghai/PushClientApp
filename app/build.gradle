@@ -1,5 +1,5 @@
 apply plugin: 'com.android.application'
-
+apply plugin: 'io.objectbox'
 android {
     compileSdkVersion 28
     defaultConfig {
@@ -48,4 +48,5 @@ dependencies {
     implementation 'cn.jiguang.sdk:jcore:2.2.8'
 
     implementation 'com.android.support:recyclerview-v7:28.+'
+//    implementation "io.objectbox:objectbox-android:$objectboxVersion"
 }

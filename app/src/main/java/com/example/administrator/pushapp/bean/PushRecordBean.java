@@ -1,7 +1,7 @@
 package com.example.administrator.pushapp.bean;
 
-import org.xutils.db.annotation.Column;
-import org.xutils.db.annotation.Table;
+import io.objectbox.annotation.Entity;
+import io.objectbox.annotation.Id;
 
 /**
  * <p>@author : tangyanghai</p>
@@ -9,22 +9,15 @@ import org.xutils.db.annotation.Table;
  * <p>@for : </p>
  * <p></p>
  */
-@Table(name = "pushRecord")
+@Entity
 public class PushRecordBean {
-    @Column(
-            name = "ID",
-            isId = true,
-            autoGen = true
-    )
-    private int id;
+    @Id
+    private Long id;
 
-    @Column(name = "SUCCEED")
     private boolean succeed;
 
-    @Column(name = "CONTENT")
     private String content;
 
-    @Column(name = "TIME")
     private String time;
 
     public PushRecordBean() {
@@ -36,11 +29,11 @@ public class PushRecordBean {
         this.time = time;
     }
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

@@ -28,7 +28,7 @@ public class CacheUtils implements ICache {
             @Override
             public void run() {
                 NativeCache.getInstance().add(list);
-                DbCache.getInstance().add(list);
+                BoxCache.getInstance().add(list);
             }
         }.start();
     }
@@ -39,7 +39,14 @@ public class CacheUtils implements ICache {
         if (ts != null && ts.size() > 0) {
             return ts;
         }
-        return DbCache.getInstance().find(cls);
+
+        ts = BoxCache.getInstance().find(cls);
+        if (ts != null && ts.size() > 0) {
+            for (T t : ts) {
+                NativeCache.getInstance().add(t);
+            }
+        }
+        return ts;
     }
 
     public synchronized <T> void findAsyn(final Class<T> clz, final OnFindData<T> lisenter) {

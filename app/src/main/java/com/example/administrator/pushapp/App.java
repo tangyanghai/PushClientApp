@@ -4,6 +4,8 @@ import android.app.Application;
 import android.content.Context;
 
 
+import com.example.administrator.pushapp.cache.BoxCache;
+
 import org.xutils.x;
 
 /**
@@ -20,5 +22,6 @@ public class App extends Application {
         super.onCreate();
         app = this;
         x.Ext.init(this);
+        BoxCache.getInstance().init(this);
     }
 }

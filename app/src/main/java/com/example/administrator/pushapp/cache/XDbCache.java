@@ -1,5 +1,8 @@
 package com.example.administrator.pushapp.cache;
 
+import android.os.Environment;
+import android.util.Log;
+
 import org.xutils.DbManager;
 import org.xutils.db.Selector;
 import org.xutils.db.table.TableEntity;
@@ -12,18 +15,19 @@ import java.util.List;
 /**
  * <p>@author : tangyanghai</p>
  * <p>@time : 2020/4/16</p>
- * <p>@for : 数据库数据缓存</p>
+ * <p>@for : Xutils数据库数据缓存</p>
+ * <p>@for : app退出重进后,数据不在了</p>
  * <p></p>
  */
-public class DbCache implements ICache{
-    private static final DbCache ourInstance = new DbCache();
+public class XDbCache implements ICache{
+    private static final XDbCache ourInstance = new XDbCache();
     private DbManager db;
 
-    public static DbCache getInstance() {
+    public static XDbCache getInstance() {
         return ourInstance;
     }
 
-    private DbCache() {
+    private XDbCache() {
         init();
     }
 
@@ -37,7 +41,7 @@ public class DbCache implements ICache{
                 .setTableCreateListener(new DbManager.TableCreateListener() {
                     @Override
                     public void onTableCreated(DbManager db, TableEntity<?> table) {
-
+                        Log.e("==新建表==",table.getName());
                     }
                 })//设置数据库创建时的Listener
                 .setDbUpgradeListener(new DbManager.DbUpgradeListener() {
@@ -45,8 +49,8 @@ public class DbCache implements ICache{
                     public void onUpgrade(DbManager db, int oldVersion, int newVersion) {
                         //balabala...
                     }
-                });//设置数据库升级时的Listener,这里可以执行相关数据库表的相关修改,比如alter语句增加字段等
-        //.setDbDir(null);//设置数据库.db文件存放的目录,默认为包名下databases目录下
+                })//设置数据库升级时的Listener,这里可以执行相关数据库表的相关修改,比如alter语句增加字段等
+        .setDbDir(Environment.getExternalStorageDirectory());//设置数据库.db文件存放的目录,默认为包名下databases目录下
         try {
             db = x.getDb(daoConfig);
         } catch (DbException e) {

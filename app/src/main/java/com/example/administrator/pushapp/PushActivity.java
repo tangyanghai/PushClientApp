@@ -201,11 +201,16 @@ public class PushActivity extends AppCompatActivity implements OnFindData<RegIdB
         });
     }
 
-    private <T> void showAlertDiaot(final List<T> list, final ViewBinder<T> binder) {
-        if (list == null || list.size() == 0) {
+    private <T> void showAlertDiaot(final List<T> l, final ViewBinder<T> binder) {
+        if (l == null || l.size() == 0) {
             ToastUtils.show("数据为空");
             return;
         }
+        final List<T> list = new ArrayList<>();
+        for (int i = l.size()-1; i >= 0; i--) {
+            list.add(l.get(i));
+        }
+
         View v = LayoutInflater.from(this)
                 .inflate(R.layout.dialog_push_record, null, false);
         RecyclerView rv = v.findViewById(R.id.rv);
@@ -264,7 +269,9 @@ public class PushActivity extends AppCompatActivity implements OnFindData<RegIdB
             beans.add(regIdBean1);
             RegIdBean regIdBean2 = new RegIdBean("13065ffa4e96ce2df60");
             beans.add(regIdBean2);
-            CacheUtils.getInstance().add(regIdBean1, regIdBean2);
+            RegIdBean regIdBean3 = new RegIdBean("1104a897923712bdbbe");
+            beans.add(regIdBean3);
+            CacheUtils.getInstance().add(regIdBean1, regIdBean2, regIdBean3);
         }
 
         list.clear();
